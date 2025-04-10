@@ -1,0 +1,18 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/crucial-binder-447418-k1/flask-repo/melda-app:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/crucial-binder-447418-k1/flask-repo/melda-app:latest']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'melda-flask-gcp',
+        '--image', 'us-central1-docker.pkg.dev/crucial-binder-447418-k1/flask-repo/melda-app:latest',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--port', '8080'
+      ]
+options:
+  logging: CLOUD_LOGGING_ONLY
