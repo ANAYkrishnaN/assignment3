@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Hello from melda ECS Container"
+    return "Hello from nambath ECS Container"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))  # Use 8080 from Cloud Run
