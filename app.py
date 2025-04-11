@@ -8,8 +8,12 @@ def home():
     return "Hello from nambath ECS Container"
 
 @app.route("/health")
-def health_check():
+def health():
     return "OK", 200
+
+@app.route("/<path:path>")
+def catch_all(path):
+    return f"❌ No route found for /{path}", 404
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
